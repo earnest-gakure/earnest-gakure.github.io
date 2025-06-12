@@ -147,3 +147,57 @@ nav a:hover {
   display: none;
   border-left: 2px solid #111;
 }
+/* Footer social icons */
+.social-footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.social-footer a {
+  margin: 0 1rem;
+  color: #333;
+  text-decoration: none;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-footer a:hover {
+  transform: scale(1.2);
+}
+
+.social-footer a:nth-child(1):hover {
+  color: #333; /* GitHub hover */
+}
+
+.social-footer a:nth-child(2):hover {
+  color: #0077b5; /* LinkedIn hover */
+}
+
+/* Contact page */
+.page-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #f8f8f8;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+.page-container h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.page-container p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.page-container a {
+  color: #0077b5;
+  text-decoration: none;
+}
+
+.page-container a:hover {
+  text-decoration: underline;
+}
