@@ -176,3 +176,37 @@ header {
   color: #3a5eff;
   text-decoration: none;
 }
+#gearbox-afretec {
+  margin: 40px auto;
+  max-width: 800px;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f7f9fc;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+#gearbox-afretec h2 {
+  text-align: center;
+  color: #003366;
+}
+
+#gearbox-afretec details {
+  margin: 20px 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+#gearbox-afretec summary {
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  color: #2c3e50;
+}
+
+#gearbox-afretec a {
+  color: #0056b3;
+  text-decoration: underline;
+}
