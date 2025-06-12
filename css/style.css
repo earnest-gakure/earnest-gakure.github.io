@@ -129,3 +129,50 @@ header {
     font-size: 2rem;
   }
 }
+/* Projects Section */
+.projects-section {
+  padding: 2rem 1rem;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+.project-cards {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 2rem 1rem;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.contact-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+.contact-card p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-card a {
+  color: #3a5eff;
+  text-decoration: none;
+}

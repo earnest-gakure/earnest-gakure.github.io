@@ -3,42 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects | Earnest Gakure</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Projects - Gearbox Embedded Systems</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="projects-section">
-    <nav class="topnav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="https://www.linkedin.com/in/earnest-kihara-5771922b4" target="_blank">LinkedIn</a>
-      <a href="https://github.com/earnest-gakure" target="_blank">GitHub</a>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <div class="projects-container">
-      <h1>My Projects</h1>
-
-      <div class="project">
-        <button class="accordion">Gearbox-AFRETEC Training</button>
-        <div class="panel">
-          <p>This is my first featured project. It includes several modules which I’ll add soon. Stay tuned!</p>
-        </div>
+  <section class="projects-section">
+    <h1>Projects</h1>
+    <div class="project-cards">
+      <div class="project-card">
+        <h2>Solar PV Cooker</h2>
+        <p>Designed a solar-powered cooker with DC electronics and a custom PCB, showcased at Nairobi International Trade Fair.</p>
       </div>
-
-      <!-- You can duplicate the above block for more projects later -->
-
+      <div class="project-card">
+        <h2>Smart Pool Table</h2>
+        <p>Developed a payment-activated system using ESP32 and SIM800L, integrated M-PESA verification and motor control.</p>
+      </div>
+      <div class="project-card">
+        <h2>Embedded Training Site</h2>
+        <p>This portfolio site showcasing embedded system experience and training modules, built using HTML, CSS, and GitHub Pages.</p>
+      </div>
     </div>
-  </div>
-
-  <script>
-    const accordions = document.querySelectorAll(".accordion");
-    accordions.forEach(btn => {
-      btn.addEventListener("click", () => {
-        btn.classList.toggle("active");
-        const panel = btn.nextElementSibling;
-        panel.style.display = (panel.style.display === "block") ? "none" : "block";
-      });
-    });
-  </script>
+  </section>
 </body>
 </html>
