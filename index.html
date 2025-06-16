@@ -1,82 +1,74 @@
-<section id="gearbox-afretec">
-  <h2>📘 Gearbox-AFRETEC Training Project</h2>
+<!-- index.html - Homepage -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earnest Gakure | Embedded Systems Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Earnest Gakure</h1>
+    <p>Embedded Systems Engineer | Project Showcase</p>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="https://github.com/earnest-gakure" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/earnest-kihara-5771922b4" target="_blank">LinkedIn</a>
+    </nav>
+  </header>
 
-  <details open>
-    <summary><strong>📁 Module 1: Project Management and Documentation</strong></summary>
-    <p><strong>Week:</strong> 1</p>
-    <p><strong>Topics:</strong></p>
-    <ul>
-      <li>Introduction to GitHub and Git</li>
-      <li>Web Publishing using HTML, CSS, and Markdown</li>
-    </ul>
-    <p><strong>Resources:</strong></p>
-    <ul>
-      <li><a href="https://github.com">GitHub</a>, <a href="https://git-scm.com">Git</a>, <a href="https://www.markdownguide.org/">Markdown</a></li>
-      <li><a href="https://www.w3schools.com/html/">HTML Tutorial</a>, <a href="https://www.w3schools.com/css/">CSS</a></li>
-    </ul>
-    <p><strong>Learning Outcomes:</strong></p>
-    <ul>
-      <li>Version control with Git & GitHub</li>
-      <li>Build and publish personal websites</li>
-      <li>Enable 2FA on GitHub</li>
-    </ul>
-    <p><strong>Assignments:</strong></p>
-    <ul>
-      <li>Set up GitHub & 2FA</li>
-      <li>Publish a personal site and document training progress</li>
-    </ul>
-  </details>
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="project-card">
+      <a href="projects/embedded-systems-training/index.html">
+        <h3>Embedded Systems Training</h3>
+        <p>11 Modules covering C, ESP32, Raspberry Pi Pico, Communication Protocols, and more.</p>
+      </a>
+    </div>
+  </section>
 
-  <details>
-    <summary><strong>📁 Module 2: Introduction to Embedded C</strong></summary>
-    <p><strong>Week:</strong> 2</p>
-    <p><strong>Topics:</strong></p>
-    <ul>
-      <li>Introduction to Embedded Systems</li>
-      <li>Working with IDEs: Arduino, Thonny</li>
-      <li>Programming in C</li>
-    </ul>
-    <p><strong>Resources:</strong></p>
-    <ul>
-      <li><a href="https://www.learn-c.org/">Learn C</a>, Arduino, Thonny</li>
-    </ul>
-    <p><strong>Learning Outcomes:</strong></p>
-    <ul>
-      <li>Understand embedded systems & IDEs</li>
-      <li>Write and test simple C code</li>
-    </ul>
-    <p><strong>Assignments:</strong></p>
-    <ul>
-      <li>Familiarize with IDEs</li>
-      <li>Write basic C code and publish it on GitHub</li>
-    </ul>
-  </details>
+  <footer>
+    <p>&copy; 2025 Earnest Gakure</p>
+  </footer>
+</body>
+</html>
 
-  <details>
-    <summary><strong>📁 Module 3: ESP32 and Electrical Circuits</strong></summary>
-    <p><strong>Week:</strong> 3</p>
-    <p><strong>Topics:</strong></p>
-    <ul>
-      <li>Intro to electronic components</li>
-      <li>Student kit and component overview</li>
-      <li>ESP32 and Raspberry Pi Pico GPIO</li>
-      <li>Programming ESP32 using Arduino IDE</li>
-    </ul>
-    <p><strong>Resources:</strong></p>
-    <ul>
-      <li><a href="https://randomnerdtutorials.com/getting-started-with-esp32/">ESP32 Setup</a></li>
-      <li><a href="https://www.waveshare.com/wiki/Raspberry_Pi_Pico">Raspberry Pi Pico Docs</a></li>
-    </ul>
-    <p><strong>Learning Outcomes:</strong></p>
-    <ul>
-      <li>Understand component functions</li>
-      <li>Upload and test firmware on ESP32</li>
-      <li>Blink onboard LED</li>
-    </ul>
-    <p><strong>Assignments:</strong></p>
-    <ul>
-      <li>Research kit components</li>
-      <li>Set up and program ESP32</li>
-    </ul>
-  </details>
-</section>
+<!-- projects/embedded-systems-training/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedded Systems Training</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <header>
+    <h1>Embedded Systems Training</h1>
+    <p>A hands-on training program covering 11 core modules of embedded systems.</p>
+    <nav><a href="../../index.html">← Back to Home</a></nav>
+  </header>
+
+  <section>
+    <h2>Modules</h2>
+    <ol>
+      <li><a href="modules/01-project-management/index.html">1. Project Management and Documentation</a></li>
+      <li><a href="modules/02-embedded-c/index.html">2. Introduction to Embedded C</a></li>
+      <li><a href="modules/03-esp32-electrical/index.html">3. Introduction to ESP32 and Electrical Circuits</a></li>
+      <li><a href="modules/04-pico-python/index.html">4. Introduction to Python and Raspberry Pi Pico</a></li>
+      <li><a href="modules/05-sensors-actuators/index.html">5. Sensors and Actuators</a></li>
+      <li><a href="modules/06-wired-intro/index.html">6. Introduction to Wired Communication Protocols</a></li>
+      <li><a href="modules/07-wired-i/index.html">7. Wired Communication Protocols I</a></li>
+      <li><a href="modules/08-wired-ii/index.html">8. Wired Communication Protocols II</a></li>
+      <li><a href="modules/09-wireless/index.html">9. Wireless Communication Protocols</a></li>
+      <li><a href="modules/10-esp32-cam/index.html">10. ESP32-CAM</a></li>
+      <li><a href="modules/11-final-project/index.html">11. Embedded Systems Final Project</a></li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Earnest Gakure</p>
+  </footer>
+</body>
+</html>
