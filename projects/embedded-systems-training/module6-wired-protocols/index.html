@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Module 6: Introduction to Wired Communication Protocols</title>
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body>
+  <header>
+    <h1>Module 6: Introduction to Wired Communication Protocols</h1>
+  </header>
+
+  <section>
+    <h2>📘 Overview</h2>
+    <p>This module introduces the concept of wired communication protocols in embedded systems including UART, SPI, and I2C. It also includes two practical sensor-based mini-projects demonstrating communication and control using the Raspberry Pi Pico and ESP32.</p>
+
+    <h2>🎯 Learning Outcomes</h2>
+    <ul>
+      <li>Understand communication protocols in embedded systems</li>
+      <li>Differentiate between UART, I2C, and SPI</li>
+      <li>Use PIR sensor to detect motion</li>
+      <li>Use ultrasonic sensor to control LED brightness with PWM</li>
+    </ul>
+
+    <h2>🧪 Tasks and Experiments</h2>
+    
+    <h3>6.1 Communication Protocols in Embedded Systems</h3>
+    <ul>
+      <li>Study of Serial Communication, UART, SPI, I2C protocols</li>
+    </ul>
+
+    <h3>6.2 Working with Communication Protocols</h3>
+    <ul>
+      <li>Understanding electrical connections and use cases of I2C, UART, SPI</li>
+    </ul>
+
+    <h3>6.3 Ultrasonic Sensor with PWM Brightness LED (Raspberry Pi Pico)</h3>
+    <p>Measures distance and controls the brightness of an LED using PWM based on the measured distance.</p>
+
+    <h3>6.4 PIR Sensor for Motion Detection (Raspberry Pi Pico)</h3>
+    <p>Turns on an LED when motion is detected using a PIR sensor.</p>
+  </section>
+
+  <section>
+    <h2>🖼️ Wokwi Simulation</h2>
+    <figure>
+      <img src="screenshots/wokwi.png" alt="Wokwi Simulation with PIR and Ultrasonic sensors" width="600">
+      <figcaption>Figure 1: Simulation of both PIR and Ultrasonic sensors with LEDs using Raspberry Pi Pico</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>🧠 Source Code</h2>
+
+    <h3>PIR + Ultrasonic + PWM LED (Raspberry Pi Pico)</h3>
+    <pre><code>
+#include "pico/stdlib.h"
+#include "hardware/pwm.h"
+#include "hardware/gpio.h"
+
+#define PIR_SENSOR_PIN 17
+#define LED1_PIN 20
+#define TRIG_PIN 18
+#define ECHO_PIN 19
+#define PWM_LED_PIN 16
+
+float measure_distance_cm() {
+    gpio_put(TRIG_PIN, 0);
+    sleep_us(2);
+    gpio_put(TRIG_PIN, 1);
+    sleep_us(10);
+    gpio_put(TRIG_PIN, 0);
+    while (gpio_get(ECHO_PIN) == 0);
+    absolute_time_t start = get_absolute_time();
+    while (gpio_get(ECHO_PIN) == 1);
+    absolute_time_t end = get_absolute_time();
+    int64_t pulse_time = absolute_time_diff_us(start, end);
+    return pulse_time / 58.0f;
+}
+
+uint16_t distance_to_pwm(float distance_cm) {
+    const float min_dist = 2.0f;
+    const float max_dist = 100.0f;
+    if (distance_cm < min_dist) distance_cm = min_dist;
+    if (distance_cm > max_dist) distance_cm = max_dist;
+    float brightness = 1.0f - ((distance_cm - min_dist) / (max_dist - min_dist));
+    return (uint16_t)(brightness * 65535);
+}
+
+int main() {
+    stdio_init_all();
+    gpio_init(PIR_SENSOR_PIN); gpio_set_dir(PIR_SENSOR_PIN, GPIO_IN); gpio_pull_down(PIR_SENSOR_PIN);
+    gpio_init(LED1_PIN); gpio_set_dir(LED1_PIN, GPIO_OUT);
+    gpio_init(TRIG_PIN); gpio_set_dir(TRIG_PIN, GPIO_OUT); gpio_put(TRIG_PIN, 0);
+    gpio_init(ECHO_PIN); gpio_set_dir(ECHO_PIN, GPIO_IN);
+    gpio_set_function(PWM_LED_PIN, GPIO_FUNC_PWM);
+    uint slice = pwm_gpio_to_slice_num(PWM_LED_PIN);
+    pwm_set_wrap(slice, 65535); pwm_set_enabled(slice, true);
+
+    while (true) {
+        bool motion = gpio_get(PIR_SENSOR_PIN);
+        gpio_put(LED1_PIN, motion);
+        float dist = measure_distance_cm();
+        uint16_t duty = distance_to_pwm(dist);
+        pwm_set_gpio_level(PWM_LED_PIN, duty);
+        sleep_ms(200);
+    }
+}
+    </code></pre>
+
+    <h3>PIR Sensor + OLED (ESP32)</h3>
+    <pre><code>
+#include &lt;SPI.h&gt;
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+#define OLED_MOSI   21
+#define OLED_CLK    22
+#define OLED_DC     19
+#define OLED_CS     18
+#define OLED_RESET  5
+
+Adafruit_SSD1306 display(128, 64, OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
+const int pirPin = 4;
+
+void setup() {
+  Serial.begin(115200);
+  if (!display.begin(SSD1306_SWITCHCAPVCC)) while (true);
+  display.clearDisplay(); display.setTextColor(SSD1306_WHITE); display.display();
+  pinMode(pirPin, INPUT);
+}
+
+void loop() {
+  int motion = digitalRead(pirPin);
+  display.clearDisplay();
+  display.setTextSize(2); display.setCursor(0, 0); display.println("PIR Sensor");
+  display.setCursor(0, 30); display.println(motion == HIGH ? "Motion!" : "No Motion");
+  display.display();
+  delay(500);
+}
+    </code></pre>
+
+    <h3>Ultrasonic + OLED (ESP32)</h3>
+    <pre><code>
+#include &lt;SPI.h&gt;
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+#define OLED_MOSI   21
+#define OLED_CLK    22
+#define OLED_DC     19
+#define OLED_CS     18
+#define OLED_RESET  5
+
+Adafruit_SSD1306 display(128, 64, OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
+const int trigPin = 4;
+const int echoPin = 15;
+
+void setup() {
+  Serial.begin(115200);
+  if (!display.begin(SSD1306_SWITCHCAPVCC)) while (true);
+  display.clearDisplay(); display.setTextColor(SSD1306_WHITE); display.display();
+  pinMode(trigPin, OUTPUT); pinMode(echoPin, INPUT);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW); delayMicroseconds(10);
+  digitalWrite(trigPin, HIGH); delayMicroseconds(10); digitalWrite(trigPin, LOW);
+  long duration = pulseIn(echoPin, HIGH);
+  int distance = duration * 0.034 / 2;
+
+  display.clearDisplay();
+  display.setTextSize(2); display.setCursor(0, 0); display.println("Ultrasonic");
+  display.setTextSize(1); display.setCursor(0, 25); display.print("Distance: "); display.print(distance); display.println(" cm");
+  display.display();
+  delay(500);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>🎬 Demo Videos</h2>
+
+    <h3>PIR Sensor with OLED (ESP32)</h3>
+    <video width="500" controls>
+      <source src="videos/pir-oled.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <h3>Ultrasonic Sensor with OLED (ESP32)</h3>
+    <video width="500" controls>
+      <source src="videos/ultrasonic-oled.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Earnest Gakure. All rights reserved.</p>
+  </footer>
+</body>
+</html>
