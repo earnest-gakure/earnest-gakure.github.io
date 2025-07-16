@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Module 5: Sensors and Actuators</title>
+  <link rel="stylesheet" href="../../../style.css" />
+</head>
+<body>
+  <header>
+    <h1>Module 5: Sensors and Actuators</h1>
+    <p>Explore basic input and output control using switches, buttons, potentiometers, and traffic lights with LEDs.</p>
+    <nav><a href="../index.html">← Back to Modules</a></nav>
+  </header>
+
+  <section>
+    <h2>Part 1: LED with Slide Switch</h2>
+    <p>This circuit uses a slide switch to turn an LED on and off.</p>
+    <h3>Code:</h3>
+    <pre><code>
+const int ledPin = 15;
+const int switchPin = 14;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(switchPin, INPUT_PULLDOWN);
+}
+
+void loop() {
+  int switchState = digitalRead(switchPin);
+  digitalWrite(ledPin, switchState);
+}
+    </code></pre>
+    <h3>Demo Video:</h3>
+    <video controls width="600">
+      <source src="videos/switch.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <section>
+    <h2>Part 2: LED with Push Button</h2>
+    <p>Toggle the LED state each time the push button is pressed.</p>
+    <h3>Code:</h3>
+    <pre><code>
+const int ledPin = 15;
+const int buttonPin = 14;
+
+bool ledState = false;
+bool lastButtonState = HIGH;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
+  digitalWrite(ledPin, ledState);
+}
+
+void loop() {
+  bool currentButtonState = digitalRead(buttonPin);
+
+  if (lastButtonState == HIGH && currentButtonState == LOW) {
+    ledState = !ledState;
+    digitalWrite(ledPin, ledState);
+  }
+
+  lastButtonState = currentButtonState;
+  delay(50);
+}
+    </code></pre>
+    <h3>Demo Video:</h3>
+    <video controls width="600">
+      <source src="videos/button.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <section>
+    <h2>Part 3: LED with Potentiometer</h2>
+    <p>Use a potentiometer to vary the brightness of an LED.</p>
+    <h3>Code:</h3>
+    <pre><code>
+const int led = 23;
+const int pot = 15;
+
+int val;
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  val = analogRead(pot);
+  analogWrite(led, val);
+  delay(30);
+}
+    </code></pre>
+    <h3>Demo Video:</h3>
+    <video controls width="600">
+      <source src="videos/potentiometer.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <section>
+    <h2>Part 4: Traffic Light System with Raspberry Pi Pico</h2>
+    <p>This demo simulates a traffic light sequence using three LEDs (Red, Yellow, Green) connected to the Raspberry Pi Pico. Each light turns on for a defined duration using a non-blocking timing strategy.</p>
+    <h3>Code (C for Pico SDK):</h3>
+    <pre><code>
+#include &lt;pico/stdlib.h&gt;
+#include &lt;pico/time.h&gt;
+
+#define RED_PIN 15
+#define YELLOW_PIN 6
+#define GREEN_PIN 4
+
+#define RED_DURATION 5000
+#define YELLOW_DURATION 2000
+#define GREEN_DURATION 5000
+
+enum TrafficState { RED, YELLOW, GREEN };
+enum TrafficState currentState = RED;
+
+uint64_t lastStateChange = 0;
+
+bool has_time_passed(uint64_t last_time, uint32_t interval_ms) {
+    return (time_us_64() / 1000) - last_time &gt;= interval_ms;
+}
+
+void setup() {
+    gpio_init(RED_PIN);
+    gpio_init(YELLOW_PIN);
+    gpio_init(GREEN_PIN);
+    gpio_set_dir(RED_PIN, GPIO_OUT);
+    gpio_set_dir(YELLOW_PIN, GPIO_OUT);
+    gpio_set_dir(GREEN_PIN, GPIO_OUT);
+
+    gpio_put(RED_PIN, 1);
+    gpio_put(YELLOW_PIN, 0);
+    gpio_put(GREEN_PIN, 0);
+}
+
+int main() {
+    setup();
+    while (true) {
+        uint64_t currentTime = time_us_64() / 1000;
+        switch (currentState) {
+            case RED:
+                if (has_time_passed(lastStateChange, RED_DURATION)) {
+                    gpio_put(RED_PIN, 0);
+                    gpio_put(YELLOW_PIN, 1);
+                    currentState = YELLOW;
+                    lastStateChange = currentTime;
+                }
+                break;
+            case YELLOW:
+                if (has_time_passed(lastStateChange, YELLOW_DURATION)) {
+                    gpio_put(YELLOW_PIN, 0);
+                    gpio_put(GREEN_PIN, 1);
+                    currentState = GREEN;
+                    lastStateChange = currentTime;
+                }
+                break;
+            case GREEN:
+                if (has_time_passed(lastStateChange, GREEN_DURATION)) {
+                    gpio_put(GREEN_PIN, 0);
+                    gpio_put(RED_PIN, 1);
+                    currentState = RED;
+                    lastStateChange = currentTime;
+                }
+                break;
+        }
+    }
+    return 0;
+}
+    </code></pre>
+    <h3>Demo Video:</h3>
+    <video controls width="600">
+      <source src="videos/traffic-lights.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Earnest Gakure</p>
+  </footer>
+</body>
+</html>
+

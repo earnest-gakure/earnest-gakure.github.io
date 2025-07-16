@@ -2,62 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Module 2: Introduction to Embedded C</title>
-  <link rel="stylesheet" href="../../style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Module 4 - Introduction to Python and Raspberry Pi Pico</title>
+  <link rel="stylesheet" href="../../../style.css">
 </head>
 <body>
   <header>
-    <h1>Module 2: Introduction to Embedded C</h1>
+    <h1>Module 4: Introduction to Python and Raspberry Pi Pico</h1>
+    <nav><a href="../index.html">← Back to Modules</a></nav>
   </header>
 
   <section>
-    <h2>📚 Topics Covered</h2>
-    <ul>
-      <li>2.1 Introduction to Embedded Systems</li>
-      <li>2.2 Introduction to IDEs: Thonny, Arduino, Pico C/C++ SDK</li>
-      <li>2.3 Introduction to C and Embedded C</li>
-      <li>2.4 Code Publishing on GitHub</li>
-    </ul>
+    <h2>Overview</h2>
+    <p>This module introduces Python programming on the Raspberry Pi Pico using MicroPython. Students learn how to install the Thonny IDE, write simple scripts, and blink onboard LEDs.</p>
+  </section>
 
-    <h2>🎯 Learning Outcomes</h2>
-    <ul>
-      <li>Understand what an embedded system is and its characteristics</li>
-      <li>Understand what an IDE is and its functions</li>
-      <li>Start writing basic C programs</li>
-      <li>Use GitHub for publishing code</li>
-    </ul>
+  <section>
+    <h2>Wokwi Simulation</h2>
+    <p>Here is a Wokwi simulation showing the LED blinking setup:</p>
+    <img src="screenshots/wokwi.png" alt="Wokwi Pico LED Simulation" style="max-width: 100%; border: 1px solid #ccc;" />
+  </section>
 
-    <h2>🧠 Assignments</h2>
-    <ol>
-      <li>Familiarize yourself with the Thonny and Arduino IDEs</li>
-      <li>Write and run basic C programs</li>
-      <li>Push example C code to GitHub repository</li>
-    </ol>
+  <section>
+    <h2>MicroPython Code</h2>
+    <p>Below is the code used to blink the onboard LED of the Raspberry Pi Pico:</p>
+    <pre><code>
+from machine import Pin
+from time import sleep
 
-    <h2>🔗 Useful Resources</h2>
-    <ul>
-      <li><a href="https://www.youtube.com/watch?v=krfY3HvnLz0" target="_blank">Embedded Systems (YouTube)</a></li>
-      <li><a href="https://www.arduino.cc/en/software" target="_blank">Arduino IDE</a></li>
-      <li><a href="https://thonny.org/" target="_blank">Thonny IDE</a></li>
-      <li><a href="https://www.learn-c.org/" target="_blank">Learn C Programming (Interactive)</a></li>
-      <li><a href="https://github.com" target="_blank">GitHub</a></li>
-    </ul>
+led = Pin(25, Pin.OUT)
 
-    <h2>🖼️ Screenshots</h2>
-    <figure>
-      <img src="screenshots/ide-setup.png" alt="IDE Setup Screenshot" width="500">
-      <figcaption>Figure 1: Thonny and Arduino IDEs configured</figcaption>
-    </figure>
+while True:
+    led.toggle()
+    sleep(0.5)
+    </code></pre>
+  </section>
 
-    <h2>🎬 Demo Video</h2>
-    <video width="500" controls>
-      <source src="videos/c-programming-demo.mp4" type="video/mp4">
+  <section>
+    <h2>Demo Video</h2>
+    <p>Watch this video showing the LED blinking after uploading the MicroPython code:</p>
+    <video controls width="600">
+      <source src="videos/blink.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </section>
 
   <footer>
-    <p>&copy; 2025 Earnest Gakure. All rights reserved.</p>
+    <p>&copy; 2025 Earnest Gakure</p>
   </footer>
 </body>
 </html>
